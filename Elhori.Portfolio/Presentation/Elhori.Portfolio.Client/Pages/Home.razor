@@ -1,0 +1,69 @@
+﻿@page "/"
+@using Elhori.Portfolio.Client.Layout
+
+@layout EmptyLayout
+
+<PageTitle>Home</PageTitle>
+
+<style>
+    body {
+        font-family: 'Fira Code', monospace;
+        background-color: #101010;
+        color: #dcdcdc;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+</style>
+
+<header class="container">
+    <h1>Elhori</h1>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<section id="about" class="container intro">
+    <h2>About Me</h2>
+    <p>
+        A passionate software engineer skilled in .NET with a bachelor's degree in computer science and 4 years of experience. 🎓, 
+        I thrive on creating innovative solutions and delivering high-quality software products. 💡 My expertise lies in developing robust applications, 
+        leveraging the power of .NET framework and its ecosystem. I have a strong understanding of software development principles and a keen eye for detail. 🖥️ 
+        I am constantly exploring new technologies and staying up-to-date with the latest industry trends to ensure that my work is always cutting-edge. 🚀 
+        Let's connect and discuss how we can collaborate to drive impactful software solutions!
+    </p>
+</section>
+
+<section id="skills" class="container skills">
+    <h2>Skills</h2>
+    <div class="skill"><i class="fab fa-js-square"></i> JavaScript</div>
+    <div class="skill"><i class="fas fa-laptop-code"></i> .NET</div>
+    <div class="skill"><i class="fab fa-css3-alt"></i> CSS3</div>
+    <div class="skill"><i class="fab fa-html5"></i> HTML5</div>
+</section>
+
+<section id="projects" class="container projects">
+    <h2>Projects</h2>
+    <div class="project">
+        <h3>Project One</h3>
+        <p>Web application built with Blazor and ASP.NET Core, designed to streamline team collaboration and project tracking.</p>
+    </div>
+    <div class="project">
+        <h3>Project Two</h3>
+        <p>Personal portfolio site showcasing my skills and projects, built with HTML, CSS, and .NET.</p>
+    </div>
+</section>
+
+<section id="contact" class="container contact">
+    <h2>Contact</h2>
+    <a href="https://github.com/elhori" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+    <a href="https://www.linkedin.com/in/eelhori/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+    <a href="mailto:emadelhori@yahoo.com"><i class="fas fa-envelope"></i> Email</a>
+</section>
+
+<footer>
+    <p>&copy; @DateTime.Now.Year CodeCrafters Studio. All rights reserved.</p>
+</footer>
