@@ -1,5 +1,84 @@
-﻿<h3>Projects</h3>
+﻿@page "/projects"
+
+<h3>Projects Management</h3>
+
+<div class="container mt-4">
+    <!-- Search Section -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <input type="text" class="form-control" @bind="SearchQuery" @bind:event="oninput" placeholder="Search for a project..." />
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary w-100" @onclick="SearchAsync">Search</button>
+        </div>
+    </div>
+
+    <!-- Projects Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (_projects.Results.Any())
+                {
+                    @foreach (var project in _projects.Results)
+                    {
+                        <tr>
+                            <td>@project.Id</td>
+                            <td>@project.Name</td>
+                            <td>@project.Description</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm me-2" @onclick="() => SelectProject(project)">Edit</button>
+                                <button class="btn btn-danger btn-sm" @onclick="() => DeleteAsync(project.Id)">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">No projects found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    <Pagination TotalPages="@TotalPages" CurrentPage="_projects.CurrentPage" OnPageChanged="@(async (page) => await LoadDataAsync(page))" />
+
+    <!-- Add/Edit Project Form -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h5 class="card-title">@FormTitle</h5>
+        </div>
+        <div class="card-body">
+            <EditForm Model="Model" OnValidSubmit="SubmitAsync">
+                <DataAnnotationsValidator />
+
+                <div class="mb-3">
+                    <label for="Name" class="form-label">Project Name</label>
+                    <InputText id="Name" class="form-control" @bind-Value="Model.Name" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="Description" class="form-label">Project Description</label>
+                    <InputTextArea id="Description" class="form-control" @bind-Value="Model.Description" />
+                </div>
+
+                <button type="submit" class="btn btn-success">@FormButtonText</button>
+                <button type="button" class="btn btn-secondary ms-2" @onclick="ResetForm">Cancel</button>
+            </EditForm>
+        </div>
+    </div>
+</div>
 
 @code {
-
+    private int TotalPages => (int)Math.Ceiling((double)_projects.TotalResults / _projects.PageSize);
 }

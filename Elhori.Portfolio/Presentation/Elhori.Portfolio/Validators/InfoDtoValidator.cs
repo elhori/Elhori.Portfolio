@@ -9,7 +9,7 @@ public class InfoDtoValidator : AbstractValidator<InfoDto>
     {
         RuleFor(x => x.AboutMe)
             .NotEmpty().WithMessage("About Me section is required.")
-            .MaximumLength(500).WithMessage("About Me section cannot exceed 500 characters.");
+            .MaximumLength(1000).WithMessage("About Me section cannot exceed 1000 characters.");
 
         RuleFor(x => x.GithubUrl)
             .NotEmpty().WithMessage("GitHub URL is required.")

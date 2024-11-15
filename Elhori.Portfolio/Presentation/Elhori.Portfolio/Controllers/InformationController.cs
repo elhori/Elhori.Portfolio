@@ -25,7 +25,7 @@ public class InformationController(IInfoService service, IValidator<InfoDto> val
 
         if (!validationResult.IsValid)
         {
-            return BadRequest(validationResult.Errors);
+            return BadRequest(validationResult.Errors.Select(i => i.ErrorMessage));
         }
 
         return Ok(await service.CreateAsync(dto, cancellationToken));
@@ -39,7 +39,7 @@ public class InformationController(IInfoService service, IValidator<InfoDto> val
 
         if (!validationResult.IsValid)
         {
-            return BadRequest(validationResult.Errors);
+            return BadRequest(validationResult.Errors.Select(i => i.ErrorMessage));
         }
 
         return Ok(await service.UpdateAsync(dto, cancellationToken));

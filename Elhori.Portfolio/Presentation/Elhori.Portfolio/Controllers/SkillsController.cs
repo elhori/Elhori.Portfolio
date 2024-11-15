@@ -15,12 +15,12 @@ public class SkillsController(ISkillService service, IValidator<SkillDto> valida
     // GET: api/Skills/page/{page}/size/{size}
     [HttpGet("page/{page}/size/{size}")]
     public async Task<IActionResult> Get(
-        [FromQuery] string searchQuery,
+        [FromQuery] string? searchQuery,
         [Range(1, int.MaxValue)] int page, 
         [Range(10, int.MaxValue)] int size, 
         CancellationToken cancellationToken)
     {
-        return Ok(await service.GetPaginatedAsync(searchQuery, page, size, cancellationToken));
+        return Ok(await service.GetPaginatedAsync(searchQuery!, page, size, cancellationToken));
     }
 
     // GET: api/Skills/{id}
@@ -38,7 +38,7 @@ public class SkillsController(ISkillService service, IValidator<SkillDto> valida
 
         if (!validationResult.IsValid)
         {
-            return BadRequest(validationResult.Errors);
+            return BadRequest(validationResult.Errors.Select(i => i.ErrorMessage));
         }
 
         return Ok(await service.CreateAsync(dto, cancellationToken));
@@ -52,7 +52,7 @@ public class SkillsController(ISkillService service, IValidator<SkillDto> valida
 
         if (!validationResult.IsValid)
         {
-            return BadRequest(validationResult.Errors);
+            return BadRequest(validationResult.Errors.Select(i => i.ErrorMessage));
         }
 
         return Ok(await service.UpdateAsync(dto, cancellationToken));

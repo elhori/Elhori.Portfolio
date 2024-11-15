@@ -12,7 +12,7 @@ public class InfoConfig : IEntityTypeConfiguration<Info>
 
         builder.Property(x => x.AboutMe)
             .IsRequired()
-            .HasMaxLength(500);
+            .HasMaxLength(1000);
 
         builder.Property(x => x.GithubUrl)
             .IsRequired()

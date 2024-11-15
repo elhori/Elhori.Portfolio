@@ -32,7 +32,7 @@ public partial class Info
 
         var info = await InfoService.GetAsync();
 
-        if (info != null!)
+        if (info.Id > 0)
         {
             Model = new InfoViewModel(info);
 
@@ -77,13 +77,13 @@ public partial class Info
     {
         var bgClass = response switch
         {
-            "تم التعديل بنجاح." => "bg-success",
-            "تم الحذف بنجاح." => "bg-success",
-            "تمت الإضافة بنجاح." => "bg-success",
+            "تم التعديل بنجاح" => "bg-success",
+            "تم الحذف بنجاح" => "bg-success",
+            "تمت الإضافة بنجاح" => "bg-success",
+            "العنصر موجود بالفعل" => "bg-warning",
             _ => "bg-danger"
         };
-
-        await JsRuntime.InvokeVoidAsync("showToast", response, bgClass);
+        await JsRuntime.InvokeVoidAsync("ShowToast", response, bgClass);
     }
 
 

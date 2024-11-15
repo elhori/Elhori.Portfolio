@@ -40,7 +40,7 @@ public class SkillService(HttpClient httpClient) : ISkillService
         CancellationToken cancellationToken = default)
     {
         var response = await httpClient.GetFromJsonAsync<PaginatedResult<SkillDto>>(
-            $"api/Skills/page/{currentPage}/size/{pageSize}?searchQuery={Uri.EscapeDataString(searchQuery)}",
+            $"api/Skills/page/{currentPage}/size/{pageSize}?searchQuery={searchQuery}",
             cancellationToken
         );
 

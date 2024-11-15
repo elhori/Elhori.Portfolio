@@ -1,5 +1,84 @@
-﻿<h3>Skills</h3>
+﻿@page "/skills"
+
+<h3>Skills Management</h3>
+
+<div class="container mt-4">
+    <!-- Search Section -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <input type="text" class="form-control" @bind="SearchQuery" @bind:event="oninput" placeholder="Search for a skill..." />
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary w-100" @onclick="SearchAsync">Search</button>
+        </div>
+    </div>
+
+    <!-- Skills Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Icon</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (_skills.Results.Any())
+                {
+                    @foreach (var skill in _skills.Results)
+                    {
+                        <tr>
+                            <td>@skill.Id</td>
+                            <td>@skill.Name</td>
+                            <td><i class="@skill.Icon"></i></td>
+                            <td>
+                                <button class="btn btn-warning btn-sm me-2" @onclick="() => SelectSkill(skill)">Edit</button>
+                                <button class="btn btn-danger btn-sm" @onclick="() => DeleteAsync(skill.Id)">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">No skills found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    <Pagination TotalPages="@TotalPages" CurrentPage="_skills.CurrentPage" OnPageChanged="@(async (page) => await LoadDataAsync(page))" />
+
+    <!-- Add/Edit Skill Form -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h5 class="card-title">@FormTitle</h5>
+        </div>
+        <div class="card-body">
+            <EditForm Model="Model" OnValidSubmit="SubmitAsync">
+                <DataAnnotationsValidator />
+
+                <div class="mb-3">
+                    <label for="Name" class="form-label">Skill Name</label>
+                    <InputText id="Name" class="form-control" @bind-Value="Model.Name" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="Icon" class="form-label">Skill Icon (CSS Class)</label>
+                    <InputText id="Icon" class="form-control" @bind-Value="Model.Icon" />
+                </div>
+
+                <button type="submit" class="btn btn-success">@FormButtonText</button>
+                <button type="button" class="btn btn-secondary ms-2" @onclick="ResetForm">Cancel</button>
+            </EditForm>
+        </div>
+    </div>
+</div>
 
 @code {
-
+    private int TotalPages => (int)Math.Ceiling((double)_skills.TotalResults / _skills.PageSize);
 }

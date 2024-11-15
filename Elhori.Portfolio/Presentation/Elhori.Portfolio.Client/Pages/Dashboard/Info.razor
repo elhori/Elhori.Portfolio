@@ -1,5 +1,44 @@
-﻿<h3>Info</h3>
+﻿@page "/info"
 
-@code {
+<h3>Information Management</h3>
 
-}
+<div class="container mt-4">
+    <!-- Form for Adding/Editing Information -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">@FormTitle</h5>
+        </div>
+        <div class="card-body">
+            <EditForm Model="Model" OnValidSubmit="SubmitAsync">
+                <DataAnnotationsValidator />
+
+                <div class="mb-3">
+                    <label for="AboutMe" class="form-label">About Me</label>
+                    <InputTextArea id="AboutMe" class="form-control" @bind-Value="Model.AboutMe" rows="3" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="GithubUrl" class="form-label">GitHub URL</label>
+                    <InputText id="GithubUrl" class="form-control" @bind-Value="Model.GithubUrl" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="LinkedInUrl" class="form-label">LinkedIn URL</label>
+                    <InputText id="LinkedInUrl" class="form-control" @bind-Value="Model.LinkedInUrl" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="Email" class="form-label">Email</label>
+                    <InputText id="Email" type="email" class="form-control" @bind-Value="Model.Email" />
+                </div>
+
+                <button type="submit" class="btn btn-success">@FormButtonText</button>
+
+                @if (IsEdit)
+                {
+                    <button type="button" class="btn btn-danger ms-2" @onclick="DeleteAsync">Delete</button>
+                }
+            </EditForm>
+        </div>
+    </div>
+</div>

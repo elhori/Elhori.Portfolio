@@ -40,7 +40,7 @@ public class ProjectService(HttpClient httpClient) : IProjectService
         CancellationToken cancellationToken = default)
     {
         var response = await httpClient.GetFromJsonAsync<PaginatedResult<ProjectDto>>(
-            $"api/Projects/page/{currentPage}/size/{pageSize}?searchQuery={Uri.EscapeDataString(searchQuery)}",
+            $"api/Projects/page/{currentPage}/size/{pageSize}?searchQuery={searchQuery}",
             cancellationToken
         );
 

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Elhori.Portfolio.Infra.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241115022038_Init")]
+    [Migration("20241115174711_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -34,8 +34,8 @@ namespace Elhori.Portfolio.Infra.Persistence.Migrations
 
                     b.Property<string>("AboutMe")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("Email")
                         .IsRequired()

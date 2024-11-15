@@ -94,13 +94,13 @@ public partial class Projects
     {
         var bgClass = response switch
         {
-            "تم التعديل بنجاح." => "bg-success",
-            "تم الحذف بنجاح." => "bg-success",
-            "تمت الإضافة بنجاح." => "bg-success",
+            "تم التعديل بنجاح" => "bg-success",
+            "تم الحذف بنجاح" => "bg-success",
+            "تمت الإضافة بنجاح" => "bg-success",
+            "العنصر موجود بالفعل" => "bg-warning",
             _ => "bg-danger"
         };
-
-        await JsRuntime.InvokeVoidAsync("showToast", response, bgClass);
+        await JsRuntime.InvokeVoidAsync("ShowToast", response, bgClass);
     }
 
     public class ProjectViewModel
